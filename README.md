@@ -26,16 +26,16 @@ go mod tidy
 В режиме разработчика
 Запустите сервер:
 
-go run cmd/calc_service/main.go
+go run cmd/go-calc/main.go
 Сервер будет доступен по адресу: http://localhost:8080/api/v1/calculate.
 
 В режиме пользователя
 Соберите бинарный файл:
 
-go build -o calc_service cmd/calc_service/main.go
+go build -o go-calc cmd/go-calc/main.go
 Запустите его:
 
-./calc_service
+./ go-calc
 API
 POST /calculate
 Принимает математическое выражение и возвращает результат.
