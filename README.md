@@ -19,7 +19,7 @@ go-calc — это HTTP-сервис, предназначенный для вы
 1. Клонируйте репозиторий:
    ```bash
    git clone https://github.com/Roman56-boop/go-calc.git
-   cd Calculate-Service-go
+   cd go-calc
 Установите зависимости:
 go mod tidy
 Запуск
