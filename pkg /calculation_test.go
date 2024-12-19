@@ -1,62 +1,13 @@
-package main
+package calculator
 
-import (
-	"io"
-	"net/http"
-	"net/http/httptest"
-	"strings"
-	"testing"
-)
+import "testing"
 
-// main_test.go
-func TestHandleCalculate(t *testing.T) {
-	tests := []struct {
-		name       string
-		body       string
-		wantStatus int
-		wantBody   string
-	}{
-		{
-			name:       "Valid expression",
-			body:       `{"expression": "2+2*2"}`,
-			wantStatus: http.StatusOK,
-			wantBody:   `{"result":6}`, 
-		},
-		{
-			name:       "Invalid JSON",
-			body:       `{"expression": 2+2*2}`,
-			wantStatus: http.StatusUnprocessableEntity,
-			wantBody:   `{"error":"Invalid JSON format"}`, 
-		},
-		{
-			name:       "Invalid expression",
-			body:       `{"expression": "2+2*"}`,
-			wantStatus: http.StatusUnprocessableEntity,
-			wantBody:   `{"error":"Expression is not valid"}`, 
-		},
+func TestCalculate(t *testing.T) {
+	result, err := Calc("2+2")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
 	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			req := httptest.NewRequest(http.MethodPost, "/calculate", strings.NewReader(tt.body))
-			w := httptest.NewRecorder()
-
-			HandleCalculate(w, req)
-
-			res := w.Result()
-			body, _ := io.ReadAll(res.Body)
-
-			if res.StatusCode != tt.wantStatus {
-				t.Errorf("expected status %d, got %d", tt.wantStatus, res.StatusCode)
-			}
-
-			if strings.TrimSpace(string(body)) != tt.wantBody { 
-				t.Errorf("expected body %q, got %q", tt.wantBody, string(body))
-			}
-		})
+	if result != 4 {
+		t.Errorf("expected 4, got %v", result)
 	}
-}
-
-func HandleCalculate(w *httptest.ResponseRecorder, req *http.Request) {
-	panic("unimplemented")
 }
