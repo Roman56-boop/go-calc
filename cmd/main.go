@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Roman56-boop/go-calc/internal/calculator"
+	"github.com/Roman56-boop/go-calc/calculator"
 )
 
 type Request struct {
